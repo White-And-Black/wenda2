@@ -1,0 +1,15 @@
+<html>
+    <body>
+        <pre>
+            $!{value1}
+            #set($name="hello")
+            ${name}
+
+            colors:${Colors}
+
+            #foreach($color in $Colors)
+            This is Color $!{foreach.index}:$color,$!{foreach.count}
+            #end
+        </pre>
+    </body>
+</html>

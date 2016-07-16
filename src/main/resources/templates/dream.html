@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+    <pre>
+    $!{value1}
+
+
+    colors:$!{Colors}
+
+    #foreach($color in $Colors)
+    This is Color $!{foreach.index}:$color,$!{foreach.count}
+    #end
+    </pre>
+    <pre>
+    #foreach($key in $Map.keySet())
+    key:${key}  value:${Map.get($key)}
+    #end
+
+    #foreach($kv in $Map.entrySet())
+        Number:$kv.key,Value:$kv,value
+    #end
+    </pre>
+</body>
+</html>
