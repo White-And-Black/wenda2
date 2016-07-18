@@ -51,9 +51,9 @@ public class IndexController {
         for(int i=0;i<4;i++)
             map.put(String.valueOf(i),String.valueOf(i*i));
         model.addAttribute("Map",map);
-        User user1=new User("qiao");
-        user1.setDescription("This is a good boy!");
-        model.addAttribute("User",user1);
+        //User user1=new User("qiao");
+        //user1.setDescription("This is a good boy!");
+        //model.addAttribute("User.java",user1);
         return "dream";
     }
     @RequestMapping(path = {"/request"},method = {RequestMethod.GET})

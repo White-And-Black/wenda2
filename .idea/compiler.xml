@@ -23,10 +23,12 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="wenda" />
+        <module name="wenda2" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="wenda" target="1.7" />
+      <module name="wenda2" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
