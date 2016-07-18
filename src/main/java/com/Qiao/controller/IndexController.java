@@ -1,13 +1,17 @@
 package com.Qiao.controller;
 
+import com.Qiao.model.User;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 /**
  * Created by white and black on 2016/7/16.
@@ -16,8 +20,8 @@ import java.util.Map;
 public class IndexController {
     @RequestMapping(path={"/","/index"},method = {RequestMethod.GET})
     @ResponseBody
-    public String index(){
-        return "Hello world!";
+    public String index(HttpSession session){
+        return "Hello world!"+session.getAttribute("msg");
     }
 
     @RequestMapping(path={"/profile/{userId}/{group}"},method = {RequestMethod.GET})
@@ -47,7 +51,43 @@ public class IndexController {
         for(int i=0;i<4;i++)
             map.put(String.valueOf(i),String.valueOf(i*i));
         model.addAttribute("Map",map);
-
+        User user1=new User("qiao");
+        user1.setDescription("This is a good boy!");
+        model.addAttribute("User",user1);
         return "dream";
+    }
+    @RequestMapping(path = {"/request"},method = {RequestMethod.GET})
+    @ResponseBody
+    public String request(Model model, HttpServletResponse response, HttpServletRequest request,
+                            HttpSession session,@CookieValue("JSESSIONID") String sessionId){
+        StringBuilder sb=new StringBuilder();
+        sb.append("CookieValue:"+sessionId+"<br>");
+        Enumeration<String> headerNames=request.getHeaderNames();
+        while(headerNames.hasMoreElements()){
+            String name=headerNames.nextElement();
+            sb.append(name+":"+request.getHeader(name)+"<br");
+        }
+        if(request.getCookies()!=null){
+            for(Cookie cookie:request.getCookies()){
+                sb.append("Cookie:"+cookie.getName()+"value:"+cookie.getValue()+"<br>");
+            }
+        }
+        sb.append(request.getMethod()+"<br>");
+        sb.append(request.getQueryString()+"<br>");
+        sb.append(request.getPathInfo()+"<br>");
+        sb.append(request.getRequestURI()+"<br>");
+
+        response.addHeader("QiaoId","hello qiao");
+        response.addCookie(new Cookie("UserName","qiao142857"));
+        return sb.toString();
+    }
+    @RequestMapping(path={"/redirect/{code}"},method = {RequestMethod.GET})
+    public String redirect(@PathVariable("code") int code,HttpSession httpSession){
+        httpSession.setAttribute("msg","jump from redirect");
+        RedirectView red=new RedirectView("/index",true);
+        if(code==301){
+            red.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
+        }
+        return "redirect:/";
     }
 }

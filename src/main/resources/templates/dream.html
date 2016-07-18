@@ -5,6 +5,8 @@
   <title>Title</title>
 </head>
 <body>
+    Parse:#parse("header.html")
+    Include:#include("header.html")
     <pre>
     $!{value1}
 
@@ -23,6 +25,23 @@
     #foreach($kv in $Map.entrySet())
         Number:$kv.key,Value:$kv,value
     #end
+
+    User:$!{User.name},$!{User.description}
+    $!{User.getDescription()}
+
+    #set($title="Who are you?")
+    ${title}
+
+    #macro(render_color,$index,$color)
+        Color Render Macro $index,$color
+    #end
+
+    #foreach($color in $Colors)
+        #render_color($foreach.count,$color)
+    #end
+    #set($hello="dear ")
+    #set($helloworld=${hello}+"my future honey")
+    $helloworld
     </pre>
 </body>
 </html>
