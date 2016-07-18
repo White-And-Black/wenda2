@@ -2,6 +2,7 @@ package com.Qiao;
 
 import com.Qiao.dao.UserDAO;
 import com.Qiao.model.User;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class InitDatabaseTests {
 
     @Test
     public void contextLoads() {
-        Random random=new Random();
+      /*  Random random=new Random();
         for(int i=0;i<11;i++){
             User user=new User();
             user.setHeadUrl(String.format("http://images.nowcoder.com/head/%dt.png",random.nextInt(1000)));
@@ -31,6 +32,14 @@ public class InitDatabaseTests {
             user.setPassword("");
             user.setSalt("");
             userDAO.addUser(user);
+
+            user.setPassword("newpassword");
+            userDAO.updatePassword(user);
         }
+        Assert.assertEquals("newpassword",userDAO.selectById(1).getPassword());
+        userDAO.deleteById(1);
+        Assert.assertNull(userDAO.selectById(1));
+
+    */
     }
 }

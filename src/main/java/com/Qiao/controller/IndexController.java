@@ -16,7 +16,7 @@ import java.util.*;
 /**
  * Created by white and black on 2016/7/16.
  */
-@Controller
+//@Controller
 public class IndexController {
     @RequestMapping(path={"/","/index"},method = {RequestMethod.GET})
     @ResponseBody
