@@ -16,12 +16,12 @@ import java.util.*;
 /**
  * Created by white and black on 2016/7/16.
  */
-//@Controller
+@Controller
 public class IndexController {
-    @RequestMapping(path={"/","/index"},method = {RequestMethod.GET})
+    @RequestMapping(path={"/index"},method = {RequestMethod.GET})
     @ResponseBody
-    public String index(HttpSession session){
-        return "Hello world!"+session.getAttribute("msg");
+    public String index(HttpSession httpSession){
+        return "Hello world!"+httpSession.getAttribute("msg");
     }
 
     @RequestMapping(path={"/profile/{userId}/{group}"},method = {RequestMethod.GET})
@@ -33,7 +33,7 @@ public class IndexController {
     }
 
 
-    @RequestMapping(path={"/home"})
+    @RequestMapping(path={"/homes"})
     public String template(Model model){
         model.addAttribute("value1","hero");
         List<String> colors= Arrays.asList(new String[]{"RED","GREEN","BLUE"});
@@ -88,6 +88,6 @@ public class IndexController {
         if(code==301){
             red.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
         }
-        return "redirect:/";
+        return "redirect:/index";
     }
 }
