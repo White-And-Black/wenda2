@@ -4,6 +4,7 @@ import com.Qiao.dao.UserDAO;
 import com.Qiao.model.User;
 import com.Qiao.service.UserService;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggerFactory;
 import org.apache.tomcat.util.log.UserDataHelper;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,15 +16,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+
 
 /**
  * Created by white and black on 2016/7/18.
  */
 @Controller
 public class LoginController {
-    private static final Logger logger=Logger.getLogger("LoginController");
+    private static final Logger logger=Logger.getLogger(LoginController.class);
     @Autowired
     UserService userService;
     @RequestMapping(path={"/reg"},method = {RequestMethod.POST})
@@ -34,7 +35,6 @@ public class LoginController {
                       @RequestParam("password") String password,
                       @RequestParam(value="rememberme",defaultValue = "false") boolean rememberme
                       ) {
-        logger.log(Level.WARNING,"hhh");
         try{
             Map<String,String> map=userService.register(username,password);
             if(map.containsKey("ticket")){
@@ -54,7 +54,7 @@ public class LoginController {
                 return "login";
             }
         }catch (Exception e){
-            logger.info("注册异常"+e.getMessage());
+            logger.error("注册异常"+e.getMessage());
             return "login";
         }
 
@@ -91,7 +91,7 @@ public class LoginController {
                 return "login";
             }
         }catch (Exception e) {
-            logger.info("登陆异常" + e.getMessage());
+            logger.error("登陆异常" + e.getMessage());
             return "login";
         }
     }
