@@ -93,4 +93,7 @@ public class UserService {
     public void logout(String ticket){
         loginTicketDao.updateStatus(ticket,1);
     }
+    public  User getUserByName(String name){
+        return userDAO.selectByName(name);
+    }
 }

@@ -15,6 +15,7 @@ public class WendaUtil {
     private static final Logger logger = LoggerFactory.getLogger(WendaUtil.class);
 
     public static int ANO_USERID=3;
+    public static int SYSTEM_USERID=10;
 
 
     public static String getJSONString(int code){

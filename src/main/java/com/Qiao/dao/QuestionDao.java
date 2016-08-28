@@ -20,7 +20,7 @@ public interface QuestionDao {
             "values(#{title},#{content},#{createdDate},#{userId},#{commentCount})"})
     int addQuestion(Question question);
 
-    @Update({"update",TABLE_NAME,"set comment_count=#{commentCount},where id=#{id} "})
+    @Update({"update",TABLE_NAME,"set comment_count=#{commentCount} where id=#{id} "})
     int updateCommentCount(@Param("commentCount") int commentCount,@Param("id") int id);
 
     List<Question> selectLatestQuestions(@Param("userId")int userId,

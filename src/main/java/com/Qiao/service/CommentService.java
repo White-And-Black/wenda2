@@ -17,6 +17,9 @@ public class CommentService {
     public List<Comment> getCommentByEntity(int entityId,int entityType){
         return commentDao.selectCommentByEntity(entityId,entityType);
     }
+    public Comment getCommentById(int id){
+        return commentDao.getCommentById(id);
+    }
     public int addComment(Comment comment){
         return commentDao.addComment(comment);
     }

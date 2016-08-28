@@ -3,6 +3,7 @@ package com.Qiao.controller;
 
 import com.Qiao.model.*;
 import com.Qiao.service.CommentService;
+import com.Qiao.service.LikeService;
 import com.Qiao.service.QuestionService;
 import com.Qiao.service.UserService;
 import com.Qiao.util.WendaUtil;
@@ -37,6 +38,9 @@ public class QuestionController {
     @Autowired
     HostHolder hostHolder;
 
+    @Autowired
+    LikeService likeService;
+
     private static final Logger logger=Logger.getLogger(QuestionController.class);
 
     @RequestMapping(value="/question/{qid}",method = {RequestMethod.GET})
@@ -48,6 +52,13 @@ public class QuestionController {
         for(Comment comment:commentList){
             ViewObject vo=new ViewObject();
             vo.set("comment",comment);
+            if(hostHolder.getUser()==null){
+                vo.set("liked",0);
+            }else{
+                vo.set("liked",likeService.getLikeStatus(hostHolder.getUser().getId(),EntityType.ENTITY_COMMENT,comment.getId()));
+
+            }
+            vo.set("likeCount",likeService.getLikeCount(EntityType.ENTITY_COMMENT,comment.getId()));
             vo.set("user",userService.getUser(comment.getUserId()));
             vos.add(vo);
         }
